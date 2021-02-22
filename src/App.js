@@ -1,9 +1,8 @@
-import './App.css';
-
+import Feedback from './Feedback/Feedback';
 function App() {
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <Feedback />
     </div>
   );
 }
