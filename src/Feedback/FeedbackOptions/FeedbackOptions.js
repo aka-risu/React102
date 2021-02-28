@@ -1,5 +1,5 @@
 import './FeedbackOptions.scss';
-
+import Card from '@material-ui/core/Card';
 const FeedbackOptions = ({ options, onLeaveFeedback }) => (
   <>
     {options.map(option => (
@@ -12,15 +12,6 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => (
         {option}
       </button>
     ))}
-    {/* <button onClick={onLeaveFeedback} name="good">
-      Good
-    </button>
-    <button onClick={onLeaveFeedback} name="neutral">
-      Neutral
-    </button>
-    <button onClick={onLeaveFeedback} name="bad">
-      Bad
-    </button> */}
   </>
 );
 export default FeedbackOptions;
