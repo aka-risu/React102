@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/React-102/static/css/main.ff5cfe49.chunk.css",
-    "main.js": "/React-102/static/js/main.c62442b0.chunk.js",
-    "main.js.map": "/React-102/static/js/main.c62442b0.chunk.js.map",
-    "runtime-main.js": "/React-102/static/js/runtime-main.019be223.js",
-    "runtime-main.js.map": "/React-102/static/js/runtime-main.019be223.js.map",
-    "static/js/2.cc4064a3.chunk.js": "/React-102/static/js/2.cc4064a3.chunk.js",
-    "static/js/2.cc4064a3.chunk.js.map": "/React-102/static/js/2.cc4064a3.chunk.js.map",
-    "index.html": "/React-102/index.html",
-    "static/css/main.ff5cfe49.chunk.css.map": "/React-102/static/css/main.ff5cfe49.chunk.css.map",
-    "static/js/2.cc4064a3.chunk.js.LICENSE.txt": "/React-102/static/js/2.cc4064a3.chunk.js.LICENSE.txt"
+    "main.css": "/Phonebook-redux/static/css/main.ff5cfe49.chunk.css",
+    "main.js": "/Phonebook-redux/static/js/main.2ffbe418.chunk.js",
+    "main.js.map": "/Phonebook-redux/static/js/main.2ffbe418.chunk.js.map",
+    "runtime-main.js": "/Phonebook-redux/static/js/runtime-main.fb7cb637.js",
+    "runtime-main.js.map": "/Phonebook-redux/static/js/runtime-main.fb7cb637.js.map",
+    "static/js/2.66077540.chunk.js": "/Phonebook-redux/static/js/2.66077540.chunk.js",
+    "static/js/2.66077540.chunk.js.map": "/Phonebook-redux/static/js/2.66077540.chunk.js.map",
+    "index.html": "/Phonebook-redux/index.html",
+    "static/css/main.ff5cfe49.chunk.css.map": "/Phonebook-redux/static/css/main.ff5cfe49.chunk.css.map",
+    "static/js/2.66077540.chunk.js.LICENSE.txt": "/Phonebook-redux/static/js/2.66077540.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.019be223.js",
-    "static/js/2.cc4064a3.chunk.js",
+    "static/js/runtime-main.fb7cb637.js",
+    "static/js/2.66077540.chunk.js",
     "static/css/main.ff5cfe49.chunk.css",
-    "static/js/main.c62442b0.chunk.js"
+    "static/js/main.2ffbe418.chunk.js"
   ]
 }
