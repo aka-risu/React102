@@ -2,6 +2,8 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actions from '../redux/actions';
 const Contact = ({ contact: { id, name, number }, deleteContact }) => (
   <li>
     <Box display="flex" alignItems="center" justifyContent="center">
@@ -25,5 +27,12 @@ Contact.propTypes = {
   }).isRequired,
   deleteContact: PropTypes.func,
 };
-// contact: { id, name, number }, deleteContact }
-export default Contact;
+const mapStateToProps = () => {
+  return {};
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteContact: id => dispatch(actions.deleteContact(id)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Contact);

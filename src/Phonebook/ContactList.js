@@ -1,24 +1,31 @@
 import Contact from './Contact';
 import PropTypes from 'prop-types';
-const ContactList = ({ list, deleteContact }) => (
+import { connect } from 'react-redux';
+
+const ContactList = ({ filteredContacts }) => (
   <ul>
-    {list.map(contact => (
-      <Contact
-        contact={contact}
-        key={contact.id}
-        deleteContact={deleteContact}
-      />
+    {filteredContacts.map(contact => (
+      <Contact contact={contact} key={contact.id} />
     ))}
   </ul>
 );
 ContactList.propTypes = {
-  list: PropTypes.arrayOf(
+  filteredContacts: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       id: PropTypes.string,
       number: PropTypes.string,
     }),
   ).isRequired,
-  deleteContact: PropTypes.func,
 };
-export default ContactList;
+
+const mapStateToProps = state => {
+  console.log(state.contacts.contacts);
+  return {
+    filteredContacts: state.contacts.contacts.filter(item =>
+      item.name.toLowerCase().includes(state.contacts.filter.toLowerCase()),
+    ),
+  };
+};
+
+export default connect(mapStateToProps)(ContactList);
