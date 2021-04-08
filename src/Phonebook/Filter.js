@@ -1,12 +1,9 @@
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import actions from '../redux/contacts/contacts-actions';
-const Filter = ({ filter, setFilter, filterContacts }) => {
-  // function handleFilter(event) {
-  //   setFilter(event.target.value);
-  //   // filterContacts();
-  // }
+import { changeFilter } from '../redux/contacts/contacts-actions';
+import { getFilter } from '../redux/contacts/contacts-selectors';
+const Filter = ({ filter, setFilter }) => {
   return (
     <TextField
       id="outlined-search"
@@ -27,12 +24,12 @@ Filter.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    filter: state.contacts.filter,
+    filter: getFilter(state),
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    setFilter: filter => dispatch(actions.changeFilter(filter)),
+    setFilter: filter => dispatch(changeFilter(filter)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

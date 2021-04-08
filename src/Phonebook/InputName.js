@@ -2,14 +2,16 @@ import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import * as actions from '../redux/actions';
+import {
+  errorContactExists,
+  errorContact,
+} from '../redux/errors/error-selectors';
+
 const InputName = ({
-  errorName,
+  errorContact,
   errorContactExists,
   value,
   handleInput,
-  // clearErrors,
-  // setName,
 }) => {
   return (
     <>
@@ -21,19 +23,17 @@ const InputName = ({
           helperText="Name exists"
           value={value}
           onChange={handleInput}
-          // onBlur={clearErrors}
+        ></TextField>
+      ) : errorContact ? (
+        <TextField
+          error
+          id="error"
+          label="Error"
+          helperText="Enter valid name"
+          value={value}
+          onChange={handleInput}
         ></TextField>
       ) : (
-        // ) : errorName ? (
-        //   <TextField
-        //     error
-        //     id="error"
-        //     label="Error"
-        //     helperText="Enter valid name"
-        //     value={name}
-        //     onChange={handleInput}
-        //     // onBlur={clearErrors}
-        //   ></TextField>
         <TextField
           id="name-input"
           label="Name"
@@ -55,37 +55,10 @@ InputName.propTypes = {
   value: PropTypes.string,
 };
 const mapStateToProps = state => {
-  console.log(state.errors.errors);
   return {
-    // contacts: state.contacts,
-    // filteredContacts: state.filteredContacts,
-    // filter: state.filter,
-    errorContactExists: state.errors.errorContactExists,
-    // errorNumberExists: state.errorNumberExists,
-    // errorName: state.contactFormInput.errorName,
-    // errorNumber: state.contactFormInput.errorNumber,
-    // name: state.contactForm.name,
+    errorContactExists: errorContactExists(state),
+    errorContact: errorContact(state),
   };
 };
-const mapDispatchToProps = dispatch => {
-  return {
-    // setContacts: contact => dispatch(actions.addContact(contact)),
-    // deleteContact: id => dispatch(actions.deleteContact(id)),
-    // filterContacts: () => dispatch(actions.filterContacts()),
-    // setFilter: filter => dispatch(actions.setFilter(filter)),
-    // setErrorContactExists: value =>
-    //   dispatch(actions.setErrorContactExists(value)),
-    // setErrorNumberExists: value =>
-    //   dispatch(actions.setErrorNumberExists(value)),
-    // setName: value => dispatch(actions.setName(value)),
-    // clearErrors: () => {
-    //   dispatch(
-    //     actions.setErrorName(false),
-    //     actions.setErrorContactExists(false),
-    //     actions.setErrorNumber(false),
-    //     actions.setErrorNumberExists(false),
-    //   );
-    // },
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(InputName);
+
+export default connect(mapStateToProps)(InputName);

@@ -1,59 +1,52 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import InputName from './InputName';
 import InputNumber from './InputNumber';
 import Button from '@material-ui/core/Button';
 import './phonebook.scss';
 import Box from '@material-ui/core/Box';
-import PropTypes from 'prop-types';
 import './phonebook.scss';
 import { connect } from 'react-redux';
-import actions from '../redux/contacts/contacts-actions';
+// import actions from '../redux/contacts/contacts-actions';
+import contactOperations from '../redux/contacts/contacts-operations';
+
+import errorsActions from '../redux/errors/errors-actions';
+import { clearErrors } from '../redux/errors/error-operations';
+import { getContacts } from '../redux/contacts/contacts-selectors';
 
 const ContactForm = ({
+  contacts,
   setContact,
   clearErrors,
-  setErrorContactExists,
-  setErrorNumberExists,
-  setErrorName,
+  setErrorContact,
   setErrorNumber,
 }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   function handleInput(event) {
-    console.log(name);
     setName(event.target.value);
-    // clearErrors();
+    clearErrors();
   }
+
   function handleNumberInput(event) {
-    console.log(event);
     const regexp = /^[0-9\b]+$/;
     if (regexp.test(event.target.value) || event.target.value === '') {
       setNumber(event.target.value);
     }
-    // clearErrors();
-  }
-  function handleFormSubmit(event) {
-    event.preventDefault();
-    setContact({
-      name: name,
-      id: uuidv4(),
-      number: number,
-    });
-    console.log({
-      name: name,
-      id: uuidv4(),
-      number: number,
-    });
+    clearErrors();
   }
 
-  // function clearErrors() {
-  //   setErrorName(false);
-  //   setErrorContactExists(false);
-  //   setErrorNumber(false);
-  //   setErrorNumberExists(false);
-  // }
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    if (!(name || number)) {
+      !name && setErrorContact();
+      !number && setErrorNumber();
+      return;
+    }
+    setContact(name, number, contacts);
+    setName('');
+    setNumber('');
+  }
 
   return (
     <form className="input-form" onSubmit={handleFormSubmit} autoComplete="off">
@@ -63,7 +56,6 @@ const ContactForm = ({
             className="input"
             name="Name"
             handleInput={handleInput}
-            // clearErrors={clearErrors}
             type="string"
             margin="normal"
             value={name}
@@ -74,7 +66,6 @@ const ContactForm = ({
             className="input"
             name="Number"
             handleInput={handleNumberInput}
-            // clearErrors={clearErrors}
             type="number"
             margin="normal"
             value={number}
@@ -90,42 +81,35 @@ const ContactForm = ({
     </form>
   );
 };
-// ContactForm.propTypes = {
-//   setContacts: PropTypes.func.isRequired,
-//   errorContactExists: PropTypes.bool,
-//   setErrorContactExists: PropTypes.func,
-//   errorNumberExists: PropTypes.bool,
-//   setErrorNumberExists: PropTypes.func,
-// };
 
 const mapStateToProps = state => {
   return {
-    contacts: state.contacts,
-    // filteredContacts: state.filteredContacts,
-    // filter: state.filter,
-    // errorContactExists: state.errorContactExists,
-    // errorNumberExists: state.errorNumberExists,
-    // errorName: state.contactFormInput.errorName,
-    // errorNumber: state.contactFormInput.errorNumber,
-    // name: state.contactForm.name,
-    // number: state.contactForm.number,
+    contacts: getContacts(state),
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    // setContacts: contact => dispatch(actions.addContact(contact)),
-    setContact: value => dispatch(actions.addContact(value)),
-    // deleteContact: id => dispatch(actions.deleteContact(id)),
-    // filterContacts: () => dispatch(actions.filterContacts()),
-    // setFilter: filter => dispatch(actions.setFilter(filter)),
-    // setErrorContactExists: value =>
-    //   dispatch(actions.setErrorContactExists(value)),
-    // setErrorNumberExists: value =>
-    //   dispatch(actions.setErrorNumberExists(value)),
-    // setErrorName: value => dispatch(actions.setErrorName(value)),
-    // setErrorNumber: value => dispatch(actions.setErrorNumber(value)),
-    // setName: value => dispatch(actions.setName(value)),
-    // setNumber: value => dispatch(actions.setNumber(value)),
+    setContact: (name, number, contacts) => {
+      if (
+        contacts.find(el => el.name === name) ||
+        contacts.find(el => el.number === number)
+      ) {
+        if (contacts.find(el => el.name === name)) {
+          dispatch(errorsActions.setErrorContactExists(true));
+        }
+        if (contacts.find(el => el.number === number)) {
+          dispatch(errorsActions.setErrorNumberExists(true));
+        }
+        return;
+      }
+      dispatch(contactOperations.addContact(name, number));
+
+      return;
+    },
+
+    clearErrors: () => dispatch(clearErrors()),
+    setErrorContact: () => dispatch(errorsActions.setErrorContact(true)),
+    setErrorNumber: () => dispatch(errorsActions.setErrorNumber(true)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

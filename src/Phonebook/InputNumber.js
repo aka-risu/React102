@@ -2,13 +2,15 @@ import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import * as actions from '../redux/actions';
+import {
+  errorNumberExists,
+  errorNumber,
+} from '../redux/errors/error-selectors';
+
 const InputNumber = ({
   errorNumber,
   errorNumberExists,
   value,
-  clearErrors,
-  // setNumber,
   handleInput,
 }) => {
   return (
@@ -56,34 +58,9 @@ InputNumber.propTypes = {
 };
 const mapStateToProps = state => {
   return {
-    // contacts: state.contacts,
-    // filteredContacts: state.filteredContacts,
-    // filter: state.filter,
-    // errorContactExists: state.errorContactExists,
-    // errorNumberExists: state.errorNumberExists,
-    // errorName: state.contactFormInput.errorName,
-    // errorNumber: state.contactFormInput.errorNumber,
-    // number: state.contactForm.number,
+    errorNumberExists: errorNumberExists(state),
+    errorNumber: errorNumber(state),
   };
 };
-const mapDispatchToProps = dispatch => {
-  return {
-    // setContacts: contact => dispatch(actions.addContact(contact)),
-    // deleteContact: id => dispatch(actions.deleteContact(id)),
-    // filterContacts: () => dispatch(actions.filterContacts()),
-    // setFilter: filter => dispatch(actions.setFilter(filter)),
-    // setErrorContactExists: value =>
-    //   dispatch(actions.setErrorContactExists(value)),
-    // setErrorNumberExists: value =>
-    //   dispatch(actions.setErrorNumberExists(value)),
-    // setNumber: value => dispatch(actions.setNumber(value)),
-    // clearErrors: () =>
-    //   dispatch(
-    //     actions.setErrorName(false),
-    //     actions.setErrorContactExists(false),
-    //     actions.setErrorNumber(false),
-    //     actions.setErrorNumberExists(false),
-    //   ),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(InputNumber);
+
+export default connect(mapStateToProps)(InputNumber);

@@ -1,0 +1,29 @@
+{
+  "contacts": [
+    {
+      "id": "id-1",
+      "name": "Rosie Simpson",
+      "number": "459-12-56"
+    },
+    {
+      "id": "id-2",
+      "name": "Hermione Kline",
+      "number": "443-89-12"
+    },
+    {
+      "name": "dzczx",
+      "number": "23232",
+      "id": "5fWw0aI"
+    },
+    {
+      "name": "31q1",
+      "number": "322",
+      "id": "sI8K0vf"
+    },
+    {
+      "name": "a",
+      "number": "2",
+      "id": "VTRDmH6"
+    }
+  ]
+}
